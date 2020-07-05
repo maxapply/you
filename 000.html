@@ -1,0 +1,218 @@
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <title>jQuery导航tab，缓慢弹出下拉效果</title>
+  <link type="text/css" href="style.css" rel="stylesheet" />
+  <!-- <script type="text/javascript" src="js/jquery-1.7.2.min.js"></script> -->
+  <script src="./you/js/jquery-3.5.1.min.js"></script>
+</head>
+
+<body>
+  <div class="nav_menu">
+    <div class="nav">
+
+      <div class="homePge">
+        <a href="javascript:;">网站首页</a>
+      </div>
+
+
+
+      <div class="list" id="navlist">
+
+        <ul id="navfouce">
+          <li>
+            <a href="javascript:;">关于口腔</a>
+          </li>
+          <li>
+            <a href="javascript:;">诊疗项目</a>
+          </li>
+          <li>
+            <a href="javascript:;">医师团队</a>
+          </li>
+          <li>
+            <a href="javascript:;">特色技术</a>
+          </li>
+          <li>
+            <a href="javascript:;">博爱公益</a>
+          </li>
+          <li>
+            <a href="javascript:;">医疗设备</a>
+          </li>
+          <li>
+            <a href="javascript:;">来院路线</a>
+          </li>
+
+
+        </ul>
+      </div>
+      <div class="box" id="navbox" style="height:0px;opacity:0;overflow:hidden;">
+        <div class="cont" style="display:none;">
+          <ul class="sublist clearfix">
+            <li>
+              111
+            </li>
+          </ul>
+        </div>
+        <div class="cont" style="display:none;">
+          <ul class="sublist clearfix">
+            <li>222</li>
+          </ul>
+        </div>
+        <div class="cont" style="display:none;">
+          <ul class="sublist clearfix">
+            <li>333</li>
+          </ul>
+        </div>
+        <div class="cont" style="display:none;">
+          <ul class="sublist clearfix">
+            <li>444</li>
+          </ul>
+        </div>
+        <div class="cont" style="display:none;">
+          <ul class="sublist clearfix">
+            <li>555</li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="homePge">
+        <a href="javascript:;">自助预约</a>
+      </div>
+
+
+
+    </div>
+  </div>
+  <script type="text/javascript">
+    (function () {
+
+
+
+      var time = null;
+
+      var list = $("#navlist");
+
+      var box = $("#navbox");
+
+      var lista = list.find("a");
+
+
+
+      for (var i = 0, j = lista.length; i < j; i++) {
+
+        if (lista[i].className == "now") {
+
+          var olda = i;
+
+        }
+
+      }
+
+
+
+      var box_show = function (hei) {
+
+        box.stop().animate({
+
+          height: hei,
+
+          opacity: 1
+
+        }, 400);
+
+      }
+
+
+
+      var box_hide = function () {
+
+        box.stop().animate({
+
+          height: 0,
+
+          opacity: 0
+
+        }, 400);
+
+      }
+
+
+
+      lista.hover(function () {
+
+        lista.removeClass("now");
+
+        $(this).addClass("now");
+
+        clearTimeout(time);
+
+        var index = list.find("a").index($(this));
+
+        box.find(".cont").hide().eq(index).show();
+
+        var _height = box.find(".cont").eq(index).height() + 54;
+
+        box_show(_height)
+
+      }, function () {
+
+        time = setTimeout(function () {
+
+          box.find(".cont").hide();
+
+          box_hide();
+
+        }, 50);
+
+        lista.removeClass("now");
+
+        lista.eq(olda).addClass("now");
+
+      });
+
+
+
+      box.find(".cont").hover(function () {
+
+        var _index = box.find(".cont").index($(this));
+
+        lista.removeClass("now");
+
+        lista.eq(_index).addClass("now");
+
+        clearTimeout(time);
+
+        $(this).show();
+
+        var _height = $(this).height() + 54;
+
+        box_show(_height);
+
+      }, function () {
+
+        time = setTimeout(function () {
+
+          $(this).hide();
+
+          box_hide();
+
+        }, 50);
+
+        lista.removeClass("now");
+
+        lista.eq(olda).addClass("now");
+
+      });
+
+
+
+    })();
+  </script>
+  <!-- <script src="http://www.jq22.com/js/jq.js"></script> -->
+</body>
+
+</html>
